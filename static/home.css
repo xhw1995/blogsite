@@ -1,0 +1,26 @@
+h3.home-content{
+    font-size: 222%;
+    text-align: center;
+    margin-top: 4em;
+    margin-bottom: 2em;
+    /*
+    在主页显示每日阅读数量图表时，删除下列代码
+    上下居中：先把相对位置改为绝对的；然后左右相对位置50%，高度相对位置50%；最后相对位置往左偏移宽的一半，往上偏移高的一半
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    */
+}
+
+div#container {
+    margin: 0 auto;
+    height: 20em;
+    min-width: 20em;
+    max-width: 30em;
+}
+
+div.hot-data {
+    text-align: center;
+    margin-top: 2em;
+}

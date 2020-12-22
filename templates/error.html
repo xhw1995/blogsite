@@ -1,0 +1,15 @@
+{#引用base模板#}
+{% extends 'base.html' %}
+{#这个页面不识别static的标签，所以要引入static#}
+{% load static %}
+
+{#页面标题#}
+{% block title %}我的网站|错误{% endblock %}
+
+{#选中标签后，出现激活状态#}
+{% block nav_home_active %}active{% endblock %}
+
+{#页面内容#}
+{% block content %}
+    {{ message }}, <a href="{{ redirect_to }}">返回</a>    {# 返回到某个页面 #}
+{% endblock %}

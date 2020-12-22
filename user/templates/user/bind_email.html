@@ -1,0 +1,52 @@
+{#引用base模板#}
+{% extends 'form.html' %}
+
+{% block other_buttons %}
+    <button id="send_code" class="btn btn-primary">发送验证码</button>    {# 发送按钮 #}
+{% endblock %}
+
+{% block script_extends %}
+    <script type="text/javascript">
+        $("#send_code").click(function(){
+            var email = $("#id_email").val();    {# 得到邮箱地址 #}
+            if(email==""){
+                $("#tip").text('* 邮箱不能为空');
+                return false;
+            }
+
+            {# 发送验证码 #}
+            $.ajax({
+                url: "{% url 'send_verification_code' %}",
+                type: "GET",
+                data: {
+                    'email': email,
+                    'send_for': 'bind_email_code'
+                },
+                cache: false,
+                success: function(data){
+                    if(data['status']=='ERROR'){    {# 发送验证码的状态为ERROR #}
+                        alert(data['status']);
+                    }
+                }
+            });
+
+            {# 发送验证码有时间间隔 #}
+            $(this).addClass('disabled');    {# 按钮变灰 #}
+            $(this).attr('disabled', true);    {# 按钮变灰 #}
+            var time = 60;    {# 倒计时 #}
+            $(this).text(time + 's');    {# 按钮变成倒计时 #}
+            var interval = setInterval(() => {
+                if(time <= 0){
+                    clearInterval(interval);    {# 停止interval #}
+                    $(this).removeClass('disabled');
+                    $(this).attr('disabled', false);
+                    $(this).text('发送验证码');    {# 变回发送验证码 #}
+                    return false;    {# 终止倒计时程序 #}
+                }
+
+                time --;
+                $(this).text(time + 's');
+            }, 1000);
+        });
+    </script>
+{% endblock %}

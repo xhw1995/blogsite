@@ -1,0 +1,13 @@
+{% extends 'blog/blog_list.html' %}
+
+{#页面标题#}
+{% block title %}{{ blog_type.type_name }}{% endblock %}
+
+{#引用从base.html换成blog/blog_list.html，就不需要下面这行激活了#}
+{# {% block nav_blog_active %}active{% endblock %} #}
+
+{#分类的标题#}
+{% block blog_list_title %}
+    日期归档：{{ blogs_with_date }}
+    <a href="{% url 'blog_list' %}">查看全部博客</a>
+{% endblock %}

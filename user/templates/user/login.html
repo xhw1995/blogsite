@@ -1,0 +1,50 @@
+{#引用base模板#}
+{% extends 'base.html' %}
+
+{#页面标题#}
+{% block title %}我的网站|登录{% endblock %}
+
+{#选中标签后，出现激活状态#}
+{% block nav_home_active %}active{% endblock %}
+
+{#页面内容#}
+{% block content %}
+    <div class="container">    {#美化登录页面#}
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4">
+                {% if not user.is_authenticated %}    {# 判断未登录，让用户登录；已登录则跳到首页 #}
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">登录</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="" method="POST">    {# 提示登录 action是提交到的网址，#表示当前网址 #}
+                            {% csrf_token %}
+                            {% for field in login_form %}    {# Django Form方法 #}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>    {# 这里不明白 #}
+                                {{ field }}
+                                <p class="text-danger">{{ field.errors.as_text }}</p>    {# 错误信息 #}
+                            {% endfor %}
+                            <!--    自己写的登录代码
+                            <span>用户名：</span>
+                            <input type="text" name="username">
+                            <span>密码：</span>
+                            <input type="password" name="password">
+                            -->
+                            <span class="text-danger">{{ login_form.non_field_errors }}</span>    {# 全部的错误信息 #}
+                            <div class="clearfix"></div>
+                            <a href="{% url 'forgot_password' %}" class="pull-left">忘记密码？</a>
+                            <input type="submit" value="登录" class="btn btn-primary pull-right">    {# 登录按钮 #}
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                    <span>已登录，跳转到首页...</span>
+                    <script type="text/javascript">
+                        window.location.href = '/';
+                    </script>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

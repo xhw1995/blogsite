@@ -1,0 +1,46 @@
+{#引用base模板#}
+{% extends 'base.html' %}
+
+{#页面标题#}
+{% block title %}{{ page_title }}{% endblock %}    {# 页面标题 #}
+
+{#选中标签后，出现激活状态#}
+{% block nav_home_active %}active{% endblock %}
+
+{#页面内容#}
+{% block content %}
+    <div class="container">    {#美化登录页面#}
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ form_title }}</h3>    {# 表单标题 #}
+                    </div>
+                    <div class="panel-body">
+                        <form action="" method="POST">    {# 提示登录 action是提交到的网址，#表示当前网址 #}
+                            {% csrf_token %}
+                            {% for field in form %}
+                            {% if not field.is_hidden%}    {# 如果不是hidden，加上label标签 #}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% endif %}
+                            {{ field }}
+                            <p class="text-danger">{{ field.errors.as_text }}</p>    {# 错误信息 #}
+                            {% endfor %}
+                            <span id="tip" class="text-danger">{{ form.non_field_errors }}</span>    {# 全部的错误信息 #}
+                            <div class="clearfix"></div>    {# 错误信息显示样式优化 #}
+
+                            <div class="pull-left">    {# 绑定邮箱代码块 #}
+                                {% block other_buttons %}{% endblock %}
+                            </div>
+
+                            <div class="pull-right">    {# 将下面两个元素推到右边 #}
+                                <input type="submit" value="{{ submit_text }}" class="btn btn-primary">    {# 提交按钮 #}
+                                <button class="btn btn-default" onclick="window.location.href='{{ return_back_url }}' ">返回</button>    {# 不想更改，返回按钮#}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

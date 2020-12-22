@@ -1,0 +1,85 @@
+ul.blog-types{
+    list-style-type:none;
+}
+
+/*blog格式的最后一个不是这个格式*/
+div.blog:not(:last-child){
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #eee;
+}
+div.blog h3{
+    margin-top: 0.5em;
+}
+div.blog p.blog-info{
+    margin-bottom: 0;
+}
+/*魔法页面里的paginator类设置为居中*/
+div.paginator{
+    text-align:center;
+}
+
+/*blog_detail下页面内容中的blog-info-description类的格式设置，第二个是li标签的格式设置*/
+ul.blog-info-description{
+    list-style-type: none;
+    margin-bottom: 2em;
+}
+ul.blog-info-description li{
+    display: inline-block;
+    margin-right: 1em;
+}
+div.blog-content{
+    text-indent: 2em;
+    margin-bottom: 2em;
+}
+/*上一篇、下一篇的格式*/
+div.blog-more{
+    margin-top: 1em;
+}
+
+div.comment-area {
+    margin-text: 2em;
+}
+
+h3.comment-area-title {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.4em;
+}
+
+/* django form富文本编辑框宽度设置为100% */
+div.django-ckeditor-widget{
+    width: 100%
+}
+
+/*评论和回复的样式设置*/
+div.comment{
+    border-bottom: 1px dashed #ccc;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+}
+div.reply{
+    margin-left: 2em;
+}
+div#reply_content_container {
+    border: 1px solid #d1d1d1;
+    border-bottom: none;
+    background-color: #f8f8f8;
+    overflow: hidden;
+    padding: 1em 1em 0.5em;
+}
+p#reply_title {
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 0.5em;
+}
+
+/*点赞格式设置*/
+div.like {
+    color: #337ab7;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5em 0.3em;
+}
+/*点赞后变成红色*/
+div.like .active {
+    color: #f22
+}

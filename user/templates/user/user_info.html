@@ -1,0 +1,39 @@
+{#引用base模板#}
+{% extends 'base.html' %}
+
+{#页面标题#}
+{% block title %}个人资料{% endblock %}
+
+{#选中标签后，出现激活状态#}
+{% block nav_home_active %}active{% endblock %}
+
+{#页面内容#}
+{% block content %}
+    <div class="container">    {#美化登录页面#}
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                {% if user.is_authenticated %}    {# 判断是否登录 #}
+                    <h2>{{ user.username }}</h2>
+                    <ul>
+                        {# 这里如果用户没有profile，获取nickname会报错。需要判断 #}
+                        <li>昵称：{{ user.get_nickname }} <a href="{% url 'change_nickname' %}?from={{ request.get_full_path }}">修改昵称</a> </li>
+                        <li>邮箱：
+                            {% if user.email %}
+                                {{ user.email }}
+                            {% else %}
+                                未绑定邮箱 <a href="{% url 'bind_email' %}?from={{ request.get_full_path }}">绑定邮箱</a>
+                            {% endif %}
+                        </li>
+                        <li>上一次登录时间：{{ user.last_login|date:"Y-m-d H:i:s" }}</li>
+                        <li><a href="{% url 'change_password' %}">修改密码</a></li>    {#调用views的change_password方法#}
+                    </ul>
+                {% else %}    {# 在用户信息页面退出后，跳转到首页 #}
+                    <span>未登录，跳转到首页...</span>
+                    <script type="text/javascript">
+                        window.location.href = '/';
+                    </script>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
